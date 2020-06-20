@@ -1,10 +1,23 @@
 package main
 
 import (
-	"github.com/stretchr/testify/assert"
+	"fmt"
 	"strings"
 	"testing"
 )
+
+// This function was written to prevent of using assert (non-standard library)
+func EqualStringsSlices(a, b []string) bool {
+	if len(a) != len(b) {
+		return false
+	}
+	for i, v := range a {
+		if v != b[i] {
+			return false
+		}
+	}
+	return true
+}
 
 func TestReadInput(t *testing.T) {
 	type readInputTestCase struct {
@@ -36,11 +49,14 @@ func TestReadInput(t *testing.T) {
 		},
 	}
 
-	for _, testCase := range testCases {
+	for i, testCase := range testCases {
 		inputReader := strings.NewReader(testCase.inputString)
 		outputArray := ReadInput(inputReader)
 
-		assert.Equal(t, testCase.outputArray, outputArray)
+		if !EqualStringsSlices(testCase.outputArray, outputArray) {
+			message := fmt.Sprintf("error in test case number: %d", i)
+			t.Error(message)
+		}
 	}
 }
 
@@ -69,10 +85,13 @@ func TestIsValidURL(t *testing.T) {
 		},
 	}
 
-	for _, testCase := range testCases {
+	for i, testCase := range testCases {
 		funcAnswer := IsValidURL(testCase.inputURL)
 
-		assert.Equal(t, testCase.answer, funcAnswer)
+		if testCase.answer != funcAnswer {
+			message := fmt.Sprintf("error in test case number: %d", i)
+			t.Error(message)
+		}
 	}
 }
 
@@ -102,9 +121,12 @@ func TestGetWordFrequency(t *testing.T) {
 		},
 	}
 
-	for _, testCase := range testCases {
+	for i, testCase := range testCases {
 		funcAnswer := GetWordFrequency(testCase.inputDocument, testCase.word)
 
-		assert.Equal(t, testCase.answer, funcAnswer)
+		if testCase.answer != funcAnswer {
+			message := fmt.Sprintf("error in test case number: %d", i)
+			t.Error(message)
+		}
 	}
 }

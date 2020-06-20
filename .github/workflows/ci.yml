@@ -3,7 +3,7 @@ name: CI for task
 on: [push]
 
 jobs:
-  linter:
+  golangci:
     name: lint
     runs-on: ubuntu-latest
     steps:

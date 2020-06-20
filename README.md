@@ -1,3 +1,4 @@
+![CI for task](https://github.com/BoldinDmitry/mailru_task/workflows/CI%20for%20task/badge.svg)
 # Тестовая задача для стажировки в my.com
 
 ## Формулировка задачи:
